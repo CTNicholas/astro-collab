@@ -1,6 +1,6 @@
 {
   "name": "astro-collab",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,7 +15,6 @@
     "./LiveForm.astro": "./lib/LiveForm.astro",
     "./LiveUserForm.astro": "./lib/LiveUserForm.astro",
     "./LiveUsers.astro": "./lib/LiveUsers.astro",
-    "./LiveYoutube.astro": "./lib/LiveYoutube.astro",
     "./RandomUserInfo.astro": "./lib/RandomUserInfo.astro"
   },
   "dependencies": {
@@ -25,9 +24,7 @@
     "lit": "^2.2.2",
     "motion": "^10.8.1",
     "perfect-cursors": "^1.0.5",
-    "react": "^17.0.2",
-    "react-player": "^2.10.1",
-    "youtube-player": "^5.5.2"
+    "react": "^17.0.2"
   },
   "keywords": [],
   "author": "",
