@@ -2,7 +2,6 @@
   "name": "astro-collab",
   "version": "0.0.2",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +22,7 @@
     "@liveblocks/client": "^0.16.2",
     "@liveblocks/react": "^0.16.2",
     "@tldraw/tldraw": "^1.11.1",
+    "lit": "^2.2.2",
     "motion": "^10.8.1",
     "perfect-cursors": "^1.0.5",
     "react": "^17.0.2",

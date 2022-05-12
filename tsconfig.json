@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "useDefineForClassFields": false
+  }
+}
