@@ -1,0 +1,12 @@
+---
+import LiveDrawing from './LiveDrawing'
+const props = Astro.props
+---
+<LiveDrawing {...props} client:only="react" />
+
+<style is:global>
+  /* Hides cursors */
+  .tldraw svg.tl-user {
+    display: none;
+  }
+</style>

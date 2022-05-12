@@ -1,0 +1,35 @@
+{
+  "name": "astro-collab",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    "./LiveblocksRoom.astro": "./lib/LiveblocksRoom.astro",
+    "./LiveAvatars.astro": "./lib/LiveAvatars.astro",
+    "./LiveCursors.astro": "./lib/LiveCursors.astro",
+    "./LiveDrawing.astro": "./lib/LiveDrawing.astro",
+    "./LiveForm.astro": "./lib/LiveForm.astro",
+    "./LiveUserForm.astro": "./lib/LiveUserForm.astro",
+    "./LiveUsers.astro": "./lib/LiveUsers.astro",
+    "./LiveYoutube.astro": "./lib/LiveYoutube.astro",
+    "./RandomUserInfo.astro": "./lib/RandomUserInfo.astro"
+  },
+  "dependencies": {
+    "@liveblocks/client": "^0.16.2",
+    "@liveblocks/react": "^0.16.2",
+    "@tldraw/tldraw": "^1.11.1",
+    "motion": "^10.8.1",
+    "perfect-cursors": "^1.0.5",
+    "react": "^17.0.2",
+    "react-player": "^2.10.1",
+    "youtube-player": "^5.5.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
