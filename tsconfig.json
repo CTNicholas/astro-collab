@@ -5,6 +5,7 @@
     "lib": ["esnext", "dom"],
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "jsx": "react",
     "useDefineForClassFields": false
   }
