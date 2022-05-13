@@ -36,6 +36,10 @@ function Editor(props: { roomId: string, [key: string]: unknown }) {
 
 declare const window: Window & { app: TldrawApp }
 
+type FromInterface<T> = T extends Function
+  ? T
+  : { [K in keyof T]: FromInterface<T[K]> }
+
 export function useMultiplayerState(roomId: string) {
   const [app, setApp] = React.useState<TldrawApp>()
   const [error, setError] = React.useState<Error>()
@@ -46,8 +50,8 @@ export function useMultiplayerState(roomId: string) {
   const onRedo = useRedo()
   const updateMyPresence = useUpdateMyPresence()
 
-  const rLiveShapes = React.useRef<LiveMap<string, TDShape>>()
-  const rLiveBindings = React.useRef<LiveMap<string, TDBinding>>()
+  const rLiveShapes = React.useRef<LiveMap<string, FromInterface<TDShape>>>()
+  const rLiveBindings = React.useRef<LiveMap<string, FromInterface<TDBinding>>>()
 
   // Callbacks --------------
 
@@ -114,13 +118,11 @@ export function useMultiplayerState(roomId: string) {
     // Handle changes to other users' presence
     unsubs.push(
       room.subscribe('others', (others) => {
-        app.updateUsers(
-          others
-            .toArray()
-            .filter((other) => other.presence)
-            .map((other) => other.presence!.user)
-            .filter(Boolean)
-        )
+        app.updateUsers(others
+          .toArray()
+          .filter((other) => other.presence)
+          .map((other) => other.presence!.user as TDUser)
+          .filter(Boolean))
       })
     )
 
@@ -156,16 +158,16 @@ export function useMultiplayerState(roomId: string) {
 
       // Initialize (get or create) shapes and bindings maps
 
-      let lShapes: LiveMap<string, TDShape> = storage.root.get('shapes')
+      let lShapes: LiveMap<string, FromInterface<TDShape>> = storage.root.get('shapes')
       if (!lShapes) {
-        storage.root.set('shapes', new LiveMap<string, TDShape>())
+        storage.root.set('shapes', new LiveMap<string, FromInterface<TDShape>>())
         lShapes = storage.root.get('shapes')
       }
       rLiveShapes.current = lShapes
 
-      let lBindings: LiveMap<string, TDBinding> = storage.root.get('bindings')
+      let lBindings: LiveMap<string, FromInterface<TDBinding>> = storage.root.get('bindings')
       if (!lBindings) {
-        storage.root.set('bindings', new LiveMap<string, TDBinding>())
+        storage.root.set('bindings', new LiveMap<string, FromInterface<TDBinding>>())
         lBindings = storage.root.get('bindings')
       }
       rLiveBindings.current = lBindings
@@ -181,7 +183,7 @@ export function useMultiplayerState(roomId: string) {
         // and then mark the doc as migrated.
         const doc = storage.root.get('doc') as LiveObject<{
           uuid: string
-          document: TDDocument
+          document: FromInterface<TDDocument>
           migrated?: boolean
         }>
 

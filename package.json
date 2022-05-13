@@ -1,6 +1,6 @@
 {
   "name": "astro-collab",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,13 +18,19 @@
     "./RandomUserInfo.astro": "./lib/RandomUserInfo.astro"
   },
   "dependencies": {
-    "@liveblocks/client": "^0.16.2",
-    "@liveblocks/react": "^0.16.2",
+    "@liveblocks/client": "^0.16.6",
+    "@liveblocks/react": "^0.16.6",
     "@tldraw/tldraw": "^1.11.1",
     "lit": "^2.2.2",
     "motion": "^10.8.1",
-    "perfect-cursors": "^1.0.5",
+    "perfect-cursors": "^1.0.5"
+  },
+  "peerDependencies": {
     "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4"
   },
   "keywords": [],
   "author": "",
