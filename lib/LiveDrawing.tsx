@@ -23,7 +23,7 @@ export default function LiveDrawing (props) {
   )
 }
 
-function Editor(props: { roomId: string, [key: string]: unknown }) {
+function Editor (props: { roomId: string, [key: string]: unknown }) {
   const { error, ...events } = useMultiplayerState(props.roomId)
   if (error) return <div>Error: {error.message}</div>
 
@@ -40,7 +40,7 @@ type FromInterface<T> = T extends Function
   ? T
   : { [K in keyof T]: FromInterface<T[K]> }
 
-export function useMultiplayerState(roomId: string) {
+export function useMultiplayerState (roomId: string) {
   const [app, setApp] = React.useState<TldrawApp>()
   const [error, setError] = React.useState<Error>()
   const [loading, setLoading] = React.useState(true)
@@ -142,7 +142,7 @@ export function useMultiplayerState(roomId: string) {
     )
 
     // Send the exit event when the tab closes
-    function handleExit() {
+    function handleExit () {
       if (!(room && app?.room)) return
       room?.broadcastEvent({ name: 'exit', userId: app.room.userId })
     }
@@ -153,7 +153,7 @@ export function useMultiplayerState(roomId: string) {
     let stillAlive = true
 
     // Setup the document's storage and subscriptions
-    async function setupDocument() {
+    async function setupDocument () {
       const storage = await room.getStorage<any>()
 
       // Initialize (get or create) shapes and bindings maps

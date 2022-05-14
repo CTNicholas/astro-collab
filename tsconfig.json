@@ -7,6 +7,17 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "baseUrl": "./",
+    "paths": {
+      "astro-collab/LiveblocksRoom.astro": ["lib/LiveblocksRoom.astro"],
+      "astro-collab/LiveAvatars.astro": ["lib/LiveAvatars.astro"],
+      "astro-collab/LiveCursors.astro": ["lib/LiveCursors.astro"],
+      "astro-collab/LiveDrawing.astro": ["lib/LiveDrawing.astro"],
+      "astro-collab/LiveForm.astro": ["lib/LiveForm.astro"],
+      "astro-collab/LiveUserForm.astro": ["lib/LiveUserForm.astro"],
+      "astro-collab/LiveUsers.astro": ["lib/LiveUsers.astro"],
+      "astro-collab/RandomUserInfo.astro": ["lib/RandomUserInfo.astro"]
+    }
   }
 }
