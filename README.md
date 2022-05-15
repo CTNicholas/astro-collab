@@ -12,7 +12,6 @@
   </a>
 </p>
 
-
 A set of Astro collaborative components built for the [Astro collaborative starter](https://github.com/CTNicholas/astro-collaborative-starter).
 
 ## Install
@@ -20,10 +19,7 @@ A set of Astro collaborative components built for the [Astro collaborative start
 npm i astro-collab
 ```
 
-<a href="https://liveblocks.io">![Powered by Liveblocks](https://astro-collaborative-starter.ctnicholas.dev/poweredbyliveblocks.svg)</a>
-
-
-
 ## How to use
 For a full guide, check out the [Astro collaborative starter demo](https://astro-collaborative-starter.ctnicholas.dev/).
 
+<a href="https://liveblocks.io">![Powered by Liveblocks](https://astro-collaborative-starter.ctnicholas.dev/poweredbyliveblocks.svg)</a>
