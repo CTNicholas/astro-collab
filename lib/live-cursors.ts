@@ -52,6 +52,10 @@ export class LiveCursors extends SelfAndOthersClass {
   }
 
   removeCursor () {
+    if (!globals.room?.updatePresence) {
+      return
+    }
+
     globals.room.updatePresence({
       cursor: null,
     })
