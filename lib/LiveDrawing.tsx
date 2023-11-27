@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from 'react'
 import { Tldraw } from '@tldraw/tldraw'
-import type { TldrawApp, TDUser, TDShape, TDBinding, TDDocument } from '@tldraw/tldraw'
-import { LiveMap, LiveObject } from '@liveblocks/client'
-import { LiveblocksProvider, RoomProvider, useRedo, useUndo, useRoom, useUpdateMyPresence } from '@liveblocks/react'
+import type { TldrawApp, TDUser, TDShape, TDBinding } from '@tldraw/tldraw'
+import { LiveMap } from '@liveblocks/client'
+import { RoomProvider, useRedo, useUndo, useRoom, useUpdateMyPresence } from './liveblocks.config'
 import { useRoomName } from './utils/useRoomName'
-import globals from './globals'
 
 export default function LiveDrawing (props) {
   const roomName = useRoomName()
@@ -15,11 +13,9 @@ export default function LiveDrawing (props) {
   }
 
   return (
-    <LiveblocksProvider client={globals.client}>
-      <RoomProvider id={roomName}>
-        <Editor {...props} roomId={roomName} />
-      </RoomProvider>
-    </LiveblocksProvider>
+    <RoomProvider id={roomName} initialPresence={{ id: "", user: {} }}>
+      <Editor {...props} roomId={roomName} />
+    </RoomProvider>
   )
 }
 
@@ -36,7 +32,7 @@ function Editor (props: { roomId: string, [key: string]: unknown }) {
 
 declare const window: Window & { app: TldrawApp }
 
-type FromInterface<T> = T extends Function
+export type FromInterface<T> = T extends Function
   ? T
   : { [K in keyof T]: FromInterface<T[K]> }
 
@@ -119,9 +115,8 @@ export function useMultiplayerState (roomId: string) {
     unsubs.push(
       room.subscribe('others', (others) => {
         app.updateUsers(others
-          .toArray()
           .filter((other) => other.presence)
-          .map((other) => other.presence!.user as TDUser)
+          .map((other) => other.presence.user as TDUser)
           .filter(Boolean))
       })
     )
@@ -129,7 +124,7 @@ export function useMultiplayerState (roomId: string) {
     // Handle events from the room
     unsubs.push(
       room.subscribe(
-        'event',
+        'event' as any,
         (e: { connectionId: number; event: { name: string; userId: string } }) => {
           switch (e.event.name) {
             case 'exit': {
@@ -154,20 +149,20 @@ export function useMultiplayerState (roomId: string) {
 
     // Setup the document's storage and subscriptions
     async function setupDocument () {
-      const storage = await room.getStorage<any>()
+      const storage = await room.getStorage()
 
       // Initialize (get or create) shapes and bindings maps
 
-      let lShapes: LiveMap<string, FromInterface<TDShape>> = storage.root.get('shapes')
+      let lShapes = storage.root.get('shapes')
       if (!lShapes) {
-        storage.root.set('shapes', new LiveMap<string, FromInterface<TDShape>>())
+        storage.root.set('shapes', new LiveMap())
         lShapes = storage.root.get('shapes')
       }
       rLiveShapes.current = lShapes
 
       let lBindings: LiveMap<string, FromInterface<TDBinding>> = storage.root.get('bindings')
       if (!lBindings) {
-        storage.root.set('bindings', new LiveMap<string, FromInterface<TDBinding>>())
+        storage.root.set('bindings', new LiveMap())
         lBindings = storage.root.get('bindings')
       }
       rLiveBindings.current = lBindings
@@ -181,11 +176,7 @@ export function useMultiplayerState (roomId: string) {
         // document was a single LiveObject named 'doc'. If we find a doc,
         // then we need to move the shapes and bindings over to the new structures
         // and then mark the doc as migrated.
-        const doc = storage.root.get('doc') as LiveObject<{
-          uuid: string
-          document: FromInterface<TDDocument>
-          migrated?: boolean
-        }>
+        const doc = storage.root.get('doc')
 
         // No doc? No problem. This was likely a newer document
         if (doc) {
