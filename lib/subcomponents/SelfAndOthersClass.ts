@@ -28,14 +28,13 @@ export class SelfAndOthersClass extends LitElement {
   subscribePresence () {
     this.self = globals.room.getPresence()
     const unsub1 = globals.room.subscribe('my-presence', presence => {
-      this.self = presence as User
+      this.self = presence
     })
 
     const unsub2 = globals.room.subscribe('others', others => {
       this.others = others
-        .toArray()
         .filter(({ presence }) => presence)
-        .map(({ presence }) => presence as User)
+        .map(({ presence }) => presence)
     })
 
     this.unsubscribeFunctions.push(unsub1, unsub2)

@@ -8,7 +8,7 @@ export class LiveObjectClass extends StorageClass {
   name: string
 
   @property()
-  initial?: [] | {} | undefined = undefined
+  initial?: LsonObject = undefined
 
   @property()
   LiveObject
@@ -28,8 +28,8 @@ export class LiveObjectClass extends StorageClass {
       return
     }
 
-    if (!this.storage.get(this.name)) {
-      this.storage.set(this.name, new LiveObject(this.initial as LsonObject));
+    if (!this.storage.get(this.name) && this.initial) {
+      this.storage.set(this.name, new LiveObject(this.initial));
     }
 
     const unsub1 = globals.room.subscribe(this.storage.get(this.name), newObject => {
